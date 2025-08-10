@@ -180,7 +180,11 @@
                                 <span>✅ Sem compromisso</span>
                             </div>
                             
-                            <form class="simulation-form" id="simulationForm" name="simulacao-antecipacao" method="POST" data-netlify="true">
+                            <form class="simulation-form" id="simulationForm" name="simulacao-antecipacao" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html">
+                                <input type="hidden" name="form-name" value="simulacao-antecipacao" />
+                                <div style="display:none">
+                                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                                </div>
                                 <div class="form-group">
                                     <label for="amount">Quanto você quer antecipar?</label>
                                     <input type="text" id="amount" name="valor-antecipar" placeholder="R$ 50.000" required>
@@ -188,10 +192,7 @@
                                 
                                 <div class="form-group">
                                     <label for="phone">Seu WhatsApp para contato:</label>
-                                    <div class="phone-input-wrapper">
-                                        <input type="tel" id="phone" name="telefone" placeholder="(11) 99999-9999" required>
-                                        <span class="phone-icon">📱</span>
-                                    </div>
+                                    <input type="tel" id="phone" name="telefone" placeholder="(11) 99999-9999" required>
                                 </div>
                                 
                                 <div class="form-group">
@@ -260,113 +261,8 @@
                                 <span class="result-label">Economia de Tempo:</span>
                                 <span class="result-value" id="time-saved">0 dias</span>
                             </div>
-                            <div class="calculator-cta">
-                                <button class="cta-button secondary">
-                                    Solicitar Esta Antecipação
-                                </button>
-                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="process" id="como-funciona">
-            <div class="container">
-                <h3 class="section-title">Seu Dinheiro na Conta em 4 Passos</h3>
-                <p class="section-subtitle">Um processo desenhado para ser simples, rápido e totalmente digital.</p>
-                <div class="process-steps">
-                    <div class="step">
-                        <div class="step-icon blue">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                        </div>
-                        <h3>Cadastro Rápido</h3>
-                        <p>Preencha seus dados básicos em poucos minutos</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-icon blue">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-                            </svg>
-                        </div>
-                        <h3>Envio das Notas</h3>
-                        <p>Envie suas notas fiscais de forma simples e segura</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-icon blue">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
-                            </svg>
-                        </div>
-                        <h3>Análise e Proposta</h3>
-                        <p>Análise automática e proposta personalizada em horas</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-icon green">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
-                            </svg>
-                        </div>
-                        <h3>Dinheiro na Conta</h3>
-                        <p>Receba o valor aprovado diretamente na sua conta</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="benefits" id="vantagens">
-            <div class="container">
-                <h3 class="section-title">A Alternativa Inteligente aos Bancos</h3>
-                <p class="section-subtitle">Menos burocracia, mais velocidade e total transparência para sua empresa.</p>
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <div class="benefit-icon orange">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M7,2V13H10V22L17,10H13L17,2H7Z"/>
-                            </svg>
-                        </div>
-                        <h5>Agilidade Máxima</h5>
-                        <p>Capital de giro rápido, muito mais veloz que qualquer mercado tradicional</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon blue">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
-                            </svg>
-                        </div>
-                        <h5>Taxas Claras</h5>
-                        <p>Saiba exatamente todos os custos da antecipação antes de fechar negócio</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon green">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,1C18.09,1 23,5.94 23,12C23,18.06 18.09,23 12,23C5.91,23 1,18.06 1,12C1,5.94 5.91,1 12,1M12,2.5C6.75,2.5 2.5,6.75 2.5,12C2.5,17.25 6.75,21.5 12,21.5C17.25,21.5 21.5,17.25 21.5,12C21.5,6.75 17.25,2.5 12,2.5M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
-                            </svg>
-                        </div>
-                        <h5>100% Digital</h5>
-                        <p>Esqueça papelada e idas à agência. Antecipe recebíveis do seu computador</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <div class="footer-section-wrapper">
-        <section class="cta-section">
-            <div class="container">
-                <div class="cta-content">
-                    <h2 class="cta-title">Pronto para dar o próximo passo?</h2>
-                    <p class="cta-subtitle">
-                        Faça sua simulação gratuita e receba uma proposta sem compromisso. 
-                        Dê o impulso que a saúde financeira do seu negócio precisa.
-                    </p>
-                    <button class="cta-button white">
-                        Solicitar Capital de Giro
-                        <span class="arrow">→</span>
-                    </button>
                 </div>
             </div>
         </section>
@@ -471,6 +367,107 @@
                 </div>
             </div>
         </section>
+
+        <section class="process" id="como-funciona">
+            <div class="container">
+                <h3 class="section-title">Seu Dinheiro na Conta em 4 Passos</h3>
+                <p class="section-subtitle">Um processo desenhado para ser simples, rápido e totalmente digital.</p>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-icon blue">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <h3>Cadastro Rápido</h3>
+                        <p>Preencha seus dados básicos em poucos minutos</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon blue">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                        </div>
+                        <h3>Envio das Notas</h3>
+                        <p>Envie suas notas fiscais de forma simples e segura</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon blue">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                            </svg>
+                        </div>
+                        <h3>Análise e Proposta</h3>
+                        <p>Análise automática e proposta personalizada em horas</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon green">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
+                            </svg>
+                        </div>
+                        <h3>Dinheiro na Conta</h3>
+                        <p>Receba o valor aprovado diretamente na sua conta</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits" id="vantagens">
+            <div class="container">
+                <h3 class="section-title">A Alternativa Inteligente aos Bancos</h3>
+                <p class="section-subtitle">Menos burocracia, mais velocidade e total transparência para sua empresa.</p>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon orange">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7,2V13H10V22L17,10H13L17,2H7Z"/>
+                            </svg>
+                        </div>
+                        <h5>Agilidade Máxima</h5>
+                        <p>Capital de giro rápido, muito mais veloz que qualquer mercado tradicional</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon blue">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                            </svg>
+                        </div>
+                        <h5>Taxas Claras</h5>
+                        <p>Saiba exatamente todos os custos da antecipação antes de fechar negócio</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon green">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,1C18.09,1 23,5.94 23,12C23,18.06 18.09,23 12,23C5.91,23 1,18.06 1,12C1,5.94 5.91,1 12,1M12,2.5C6.75,2.5 2.5,6.75 2.5,12C2.5,17.25 6.75,21.5 12,21.5C17.25,21.5 21.5,17.25 21.5,12C21.5,6.75 17.25,2.5 12,2.5M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
+                            </svg>
+                        </div>
+                        <h5>100% Digital</h5>
+                        <p>Esqueça papelada e idas à agência. Antecipe recebíveis do seu computador</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="footer-section-wrapper">
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Pronto para dar o próximo passo?</h2>
+                    <p class="cta-subtitle">
+                        Faça sua simulação gratuita e receba uma proposta sem compromisso. 
+                        Dê o impulso que a saúde financeira do seu negócio precisa.
+                    </p>
+                    <button class="cta-button white">
+                        Solicitar Capital de Giro
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
 
         <section class="faq-section" id="faq">
             <div class="container">

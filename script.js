@@ -59,7 +59,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function validateCNPJ(cnpj) {
         const numbers = cnpj.replace(/\D/g, '');
-        return numbers.length === 14;
+        
+        // Check if has 14 digits
+        if (numbers.length !== 14) return false;
+        
+        // Check if all digits are the same (invalid CNPJ)
+        if (/^(\d)\1+$/.test(numbers)) return false;
+        
+        // Validate first check digit
+        let sum = 0;
+        let weight = 5;
+        for (let i = 0; i < 12; i++) {
+            sum += parseInt(numbers[i]) * weight;
+            weight = weight === 2 ? 9 : weight - 1;
+        }
+        let remainder = sum % 11;
+        let firstDigit = remainder < 2 ? 0 : 11 - remainder;
+        
+        if (parseInt(numbers[12]) !== firstDigit) return false;
+        
+        // Validate second check digit
+        sum = 0;
+        weight = 6;
+        for (let i = 0; i < 13; i++) {
+            sum += parseInt(numbers[i]) * weight;
+            weight = weight === 2 ? 9 : weight - 1;
+        }
+        remainder = sum % 11;
+        let secondDigit = remainder < 2 ? 0 : 11 - remainder;
+        
+        return parseInt(numbers[13]) === secondDigit;
     }
     
     function validatePhone(phone) {
@@ -121,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showError(input, 'CNPJ é obrigatório');
                     isValid = false;
                 } else if (!validateCNPJ(value)) {
-                    showError(input, 'CNPJ deve ter 14 dígitos');
+                    showError(input, 'CNPJ inválido. Verifique os dígitos informados');
                     isValid = false;
                 }
                 break;
@@ -188,8 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Form submission
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
         let isFormValid = true;
         
         // Validate all fields
@@ -199,23 +226,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        if (isFormValid) {
-            const submitButton = form.querySelector('.cta-button');
-            submitButton.classList.add('loading');
-            submitButton.textContent = 'Enviando...';
-            
-            // Simulate form submission
-            setTimeout(() => {
-                alert('Obrigado! Sua simulação foi enviada com sucesso. Em breve entraremos em contato.');
-                
-                // Reset form
-                form.reset();
-                inputs.forEach(input => clearError(input));
-                
-                submitButton.classList.remove('loading');
-                submitButton.textContent = 'Receber Proposta Grátis';
-            }, 2000);
-        } else {
+        if (!isFormValid) {
+            e.preventDefault();
             // Scroll to first error
             const firstError = form.querySelector('.error');
             if (firstError) {
@@ -225,7 +237,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 firstError.focus();
             }
+            return false;
         }
+        
+        // If validation passes, clean up formatted values before submitting
+        const cnpjInput = form.querySelector('#cnpj');
+        const phoneInput = form.querySelector('#phone');
+        const amountInput = form.querySelector('#amount');
+        
+        // Store original formatted values
+        const originalCnpj = cnpjInput.value;
+        const originalPhone = phoneInput.value;
+        const originalAmount = amountInput.value;
+        
+        // Clean values for submission (remove formatting)
+        cnpjInput.value = cnpjInput.value.replace(/\D/g, '');
+        phoneInput.value = phoneInput.value.replace(/\D/g, '');
+        const cleanAmount = amountInput.value.replace(/[R$\s]/g, '').replace(/\./g, '').replace(',', '.');
+        amountInput.value = cleanAmount;
+        
+        // Show loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.classList.add('loading');
+        submitButton.textContent = 'Enviando...';
+        submitButton.disabled = true;
+        
+        // Form will submit naturally to Netlify
+        // Don't prevent default - let the form submit
+        
+        // Optional: restore formatting after a brief delay (in case of network issues)
+        setTimeout(() => {
+            cnpjInput.value = originalCnpj;
+            phoneInput.value = originalPhone;
+            amountInput.value = originalAmount;
+        }, 1000);
     });
     
     // Smooth scrolling for navigation links
