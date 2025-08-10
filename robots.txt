@@ -1,0 +1,56 @@
+# Robots.txt para Impulsa - Antecipação de Recebíveis
+# Website: https://impulsa.com.br
+
+User-agent: *
+Allow: /
+
+# Páginas importantes para SEO
+Allow: /simular-antecipacao-recebiveis
+Allow: /como-funciona-antecipacao-recebiveis
+Allow: /calculadora-antecipacao
+Allow: /cases-sucesso
+Allow: /blog
+Allow: /antecipacao-recebiveis-sao-paulo
+Allow: /antecipacao-recebiveis-rio-janeiro
+Allow: /antecipacao-recebiveis-belo-horizonte
+
+# Bloquear arquivos administrativos
+Disallow: /admin/
+Disallow: /config/
+Disallow: /.env
+Disallow: /backup/
+Disallow: /logs/
+
+# Bloquear recursos desnecessários para SEO
+Disallow: /assets/temp/
+Disallow: /downloads/temp/
+Disallow: /cache/
+
+# Permitir recursos importantes
+Allow: /styles.css
+Allow: /script.js
+Allow: /images/
+Allow: /assets/
+Allow: /fonts/
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+
+# Bing-specific
+User-agent: Bingbot
+Allow: /
+
+# Otimização para Core Web Vitals
+User-agent: Google-InspectionTool
+Allow: /
+
+# Sitemap location
+Sitemap: https://impulsa.com.br/sitemap.xml
+
+# Crawl-delay para não sobrecarregar servidor
+Crawl-delay: 1
+
+# Informações de contato para webmasters
+# Email: seo@impulsa.com.br
+# Website: https://impulsa.com.br

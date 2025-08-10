@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://impulsa.com.br/</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://impulsa.com.br/images/impulsa-logo.png</image:loc>
+            <image:title>Impulsa - Antecipação de Recebíveis Online</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Como Funciona -->
+    <url>
+        <loc>https://impulsa.com.br/#como-funciona</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Vantagens -->
+    <url>
+        <loc>https://impulsa.com.br/#vantagens</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- FAQ -->
+    <url>
+        <loc>https://impulsa.com.br/#faq</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Simulador -->
+    <url>
+        <loc>https://impulsa.com.br/simular-antecipacao-recebiveis</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Como Funciona (página completa) -->
+    <url>
+        <loc>https://impulsa.com.br/como-funciona-antecipacao-recebiveis</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Calculadora -->
+    <url>
+        <loc>https://impulsa.com.br/calculadora-antecipacao</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Casos de Sucesso -->
+    <url>
+        <loc>https://impulsa.com.br/cases-sucesso</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- Blog -->
+    <url>
+        <loc>https://impulsa.com.br/blog</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Política de Privacidade -->
+    <url>
+        <loc>https://impulsa.com.br/politica-privacidade</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+    <!-- Termos de Uso -->
+    <url>
+        <loc>https://impulsa.com.br/termos-uso</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+    <!-- Landing Pages Regionais -->
+    <url>
+        <loc>https://impulsa.com.br/antecipacao-recebiveis-sao-paulo</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://impulsa.com.br/antecipacao-recebiveis-rio-janeiro</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://impulsa.com.br/antecipacao-recebiveis-belo-horizonte</loc>
+        <lastmod>2025-01-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+</urlset>
