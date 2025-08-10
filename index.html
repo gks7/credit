@@ -180,7 +180,7 @@
                                 <span>✅ Sem compromisso</span>
                             </div>
                             
-                            <form class="simulation-form" id="simulationForm" name="simulacao-antecipacao" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html">
+                            <form class="simulation-form" id="simulationForm" name="simulacao-antecipacao" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
                                 <input type="hidden" name="form-name" value="simulacao-antecipacao" />
                                 <div style="display:none">
                                     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
@@ -547,6 +547,24 @@
                 </div>
             </div>
         </footer>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div id="successModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">✅</div>
+                <h2>Obrigado pela sua solicitação!</h2>
+                <p>Recebemos sua simulação de antecipação e entraremos em contato em breve.</p>
+                <p>Nossa equipe analisará suas informações e enviará uma proposta personalizada no seu WhatsApp.</p>
+                <button class="cta-button primary" id="closeModalBtn">
+                    Fechar
+                </button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

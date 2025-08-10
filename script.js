@@ -217,6 +217,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Form submission
     form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Always prevent default to handle with AJAX
+        
         let isFormValid = true;
         
         // Validate all fields
@@ -227,7 +229,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         if (!isFormValid) {
-            e.preventDefault();
             // Scroll to first error
             const firstError = form.querySelector('.error');
             if (firstError) {
@@ -240,37 +241,54 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
         
-        // If validation passes, clean up formatted values before submitting
-        const cnpjInput = form.querySelector('#cnpj');
-        const phoneInput = form.querySelector('#phone');
-        const amountInput = form.querySelector('#amount');
-        
-        // Store original formatted values
-        const originalCnpj = cnpjInput.value;
-        const originalPhone = phoneInput.value;
-        const originalAmount = amountInput.value;
-        
-        // Clean values for submission (remove formatting)
-        cnpjInput.value = cnpjInput.value.replace(/\D/g, '');
-        phoneInput.value = phoneInput.value.replace(/\D/g, '');
-        const cleanAmount = amountInput.value.replace(/[R$\s]/g, '').replace(/\./g, '').replace(',', '.');
-        amountInput.value = cleanAmount;
-        
         // Show loading state
         const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
         submitButton.classList.add('loading');
         submitButton.textContent = 'Enviando...';
         submitButton.disabled = true;
         
-        // Form will submit naturally to Netlify
-        // Don't prevent default - let the form submit
+        // Prepare form data for submission
+        const formData = new FormData(form);
         
-        // Optional: restore formatting after a brief delay (in case of network issues)
-        setTimeout(() => {
-            cnpjInput.value = originalCnpj;
-            phoneInput.value = originalPhone;
-            amountInput.value = originalAmount;
-        }, 1000);
+        // Clean values for submission (remove formatting)
+        const cnpjInput = form.querySelector('#cnpj');
+        const phoneInput = form.querySelector('#phone');
+        const amountInput = form.querySelector('#amount');
+        
+        formData.set('cnpj', cnpjInput.value.replace(/\D/g, ''));
+        formData.set('telefone', phoneInput.value.replace(/\D/g, ''));
+        const cleanAmount = amountInput.value.replace(/[R$\s]/g, '').replace(/\./g, '').replace(',', '.');
+        formData.set('valor-antecipar', cleanAmount);
+        
+        // Submit form via AJAX to Netlify
+        fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            // Success - show modal
+            showSuccessModal();
+            
+            // Reset form
+            form.reset();
+            inputs.forEach(input => clearError(input));
+            
+            // Reset button
+            submitButton.classList.remove('loading');
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        })
+        .catch(error => {
+            console.error('Form submission error:', error);
+            alert('Erro ao enviar formulário. Por favor, tente novamente.');
+            
+            // Reset button
+            submitButton.classList.remove('loading');
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        });
     });
     
     // Smooth scrolling for navigation links
@@ -366,6 +384,43 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Modal functionality
+    const modal = document.getElementById('successModal');
+    const closeModal = document.getElementById('closeModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    // Show success modal
+    window.showSuccessModal = function() {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    };
+    
+    // Hide success modal
+    function hideSuccessModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+    
+    // Close modal when clicking X
+    closeModal.addEventListener('click', hideSuccessModal);
+    
+    // Close modal when clicking button
+    closeModalBtn.addEventListener('click', hideSuccessModal);
+    
+    // Close modal when clicking outside of it
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            hideSuccessModal();
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+            hideSuccessModal();
+        }
+    });
 });
 
 // Calculadora de Antecipação
