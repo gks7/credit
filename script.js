@@ -217,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Form submission
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Always prevent default to handle with AJAX
         
         let isFormValid = true;
         
@@ -229,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         if (!isFormValid) {
+            e.preventDefault(); // Only prevent if validation fails
             // Scroll to first error
             const firstError = form.querySelector('.error');
             if (firstError) {
@@ -243,74 +243,44 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show loading state
         const submitButton = form.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.textContent;
         submitButton.classList.add('loading');
         submitButton.textContent = 'Enviando...';
         submitButton.disabled = true;
         
-        // Prepare form data for submission
-        const formData = new FormData(form);
-        
-        // Clean values for submission (remove formatting)
+        // Clean values for submission (remove formatting) before form submits
         const cnpjInput = form.querySelector('#cnpj');
         const phoneInput = form.querySelector('#phone');
         const amountInput = form.querySelector('#amount');
         
-        formData.set('cnpj', cnpjInput.value.replace(/\D/g, ''));
-        formData.set('telefone', phoneInput.value.replace(/\D/g, ''));
-        const cleanAmount = amountInput.value.replace(/[R$\s]/g, '').replace(/\./g, '').replace(',', '.');
-        formData.set('valor-antecipar', cleanAmount);
+        // Create hidden inputs with clean values for Netlify
+        const cleanCnpj = document.createElement('input');
+        cleanCnpj.type = 'hidden';
+        cleanCnpj.name = 'cnpj-clean';
+        cleanCnpj.value = cnpjInput.value.replace(/\D/g, '');
+        form.appendChild(cleanCnpj);
         
-        // Submit form via AJAX to Netlify
-        fetch('/', {
-            method: 'POST',
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString()
-        })
-        .then(response => {
-            if (response.ok) {
-                // Success - show modal
-                showSuccessModal();
-                
-                // Track successful submission
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'form_submit', {
-                        event_category: 'Form',
-                        event_label: 'Simulation Success'
-                    });
-                }
-                
-                // Reset form
-                form.reset();
-                inputs.forEach(input => clearError(input));
-            } else {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-        })
-        .catch(error => {
-            console.error('Form submission error:', error);
-            
-            // Track form error
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'form_error', {
-                    event_category: 'Form',
-                    event_label: error.message
-                });
-            }
-            
-            // Show user-friendly error message
-            const errorMessage = error.message.includes('Failed to fetch') 
-                ? 'Erro de conexão. Verifique sua internet e tente novamente.'
-                : 'Erro ao enviar formulário. Por favor, tente novamente.';
-                
-            alert(errorMessage);
-        })
-        .finally(() => {
-            // Always reset button state
-            submitButton.classList.remove('loading');
-            submitButton.textContent = originalButtonText;
-            submitButton.disabled = false;
-        });
+        const cleanPhone = document.createElement('input');
+        cleanPhone.type = 'hidden';
+        cleanPhone.name = 'telefone-clean';
+        cleanPhone.value = phoneInput.value.replace(/\D/g, '');
+        form.appendChild(cleanPhone);
+        
+        const cleanAmount = document.createElement('input');
+        cleanAmount.type = 'hidden';
+        cleanAmount.name = 'valor-clean';
+        cleanAmount.value = amountInput.value.replace(/[R$\s]/g, '').replace(/\./g, '').replace(',', '.');
+        form.appendChild(cleanAmount);
+        
+        // Track form submission
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submit', {
+                event_category: 'Form',
+                event_label: 'Simulation Success'
+            });
+        }
+        
+        // Let Netlify handle the form submission naturally
+        // The form will redirect to /thank-you.html on success
     });
     
     // Smooth scrolling for navigation links
