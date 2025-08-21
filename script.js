@@ -267,24 +267,46 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(formData).toString()
         })
-        .then(() => {
-            // Success - show modal
-            showSuccessModal();
-            
-            // Reset form
-            form.reset();
-            inputs.forEach(input => clearError(input));
-            
-            // Reset button
-            submitButton.classList.remove('loading');
-            submitButton.textContent = originalButtonText;
-            submitButton.disabled = false;
+        .then(response => {
+            if (response.ok) {
+                // Success - show modal
+                showSuccessModal();
+                
+                // Track successful submission
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_submit', {
+                        event_category: 'Form',
+                        event_label: 'Simulation Success'
+                    });
+                }
+                
+                // Reset form
+                form.reset();
+                inputs.forEach(input => clearError(input));
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
         })
         .catch(error => {
             console.error('Form submission error:', error);
-            alert('Erro ao enviar formulário. Por favor, tente novamente.');
             
-            // Reset button
+            // Track form error
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_error', {
+                    event_category: 'Form',
+                    event_label: error.message
+                });
+            }
+            
+            // Show user-friendly error message
+            const errorMessage = error.message.includes('Failed to fetch') 
+                ? 'Erro de conexão. Verifique sua internet e tente novamente.'
+                : 'Erro ao enviar formulário. Por favor, tente novamente.';
+                
+            alert(errorMessage);
+        })
+        .finally(() => {
+            // Always reset button state
             submitButton.classList.remove('loading');
             submitButton.textContent = originalButtonText;
             submitButton.disabled = false;

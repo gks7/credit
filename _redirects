@@ -1,0 +1,19 @@
+# Redirect rules for Netlify
+
+# SPA fallback for 404 errors
+/* /index.html 200
+
+# Redirect common paths
+/home /
+/inicio /
+/contato /#simulationForm
+
+# Force HTTPS (handled by Netlify by default, but explicit is better)
+http://impulsa.netlify.app/* https://impulsa.netlify.app/:splat 301!
+
+# Handle trailing slashes
+/como-funciona/ /#como-funciona 301!
+/vantagens/ /#vantagens 301!
+/calculadora/ /#calculadora 301!
+/cases/ /#cases-sucesso 301!
+/faq/ /#faq 301!
