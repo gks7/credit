@@ -215,9 +215,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Form submission
+    // Form submission - simplified for Netlify
     form.addEventListener('submit', function(e) {
-        
         let isFormValid = true;
         
         // Validate all fields
@@ -241,36 +240,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
         
-        // Show loading state
-        const submitButton = form.querySelector('button[type="submit"]');
-        submitButton.classList.add('loading');
-        submitButton.textContent = 'Enviando...';
-        submitButton.disabled = true;
-        
-        // Clean values for submission (remove formatting) before form submits
-        const cnpjInput = form.querySelector('#cnpj');
-        const phoneInput = form.querySelector('#phone');
-        const amountInput = form.querySelector('#amount');
-        
-        // Create hidden inputs with clean values for Netlify
-        const cleanCnpj = document.createElement('input');
-        cleanCnpj.type = 'hidden';
-        cleanCnpj.name = 'cnpj-clean';
-        cleanCnpj.value = cnpjInput.value.replace(/\D/g, '');
-        form.appendChild(cleanCnpj);
-        
-        const cleanPhone = document.createElement('input');
-        cleanPhone.type = 'hidden';
-        cleanPhone.name = 'telefone-clean';
-        cleanPhone.value = phoneInput.value.replace(/\D/g, '');
-        form.appendChild(cleanPhone);
-        
-        const cleanAmount = document.createElement('input');
-        cleanAmount.type = 'hidden';
-        cleanAmount.name = 'valor-clean';
-        cleanAmount.value = amountInput.value.replace(/[R$\s]/g, '').replace(/\./g, '').replace(',', '.');
-        form.appendChild(cleanAmount);
-        
         // Track form submission
         if (typeof gtag !== 'undefined') {
             gtag('event', 'form_submit', {
@@ -279,8 +248,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Let Netlify handle the form submission naturally
-        // The form will redirect to /thank-you.html on success
+        // Show loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.classList.add('loading');
+        submitButton.textContent = 'Enviando...';
+        submitButton.disabled = true;
+        
+        // Let Netlify handle the form naturally
     });
     
     // Smooth scrolling for navigation links

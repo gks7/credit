@@ -7,7 +7,3 @@
   [forms.settings]
     to = ["gabriel.sarkis.1@gmail.com"]
     subject = "Nova Simulação de Antecipação - Impulsa"
-    
-  [forms.templates]
-    success = "/thank-you.html"
-    failure = "/error.html"
