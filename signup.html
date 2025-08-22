@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - Impulsa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">💬</div>
+                <span class="logo-text">Impulsa</span>
+            </div>
+            <nav class="nav">
+                <a href="/">Início</a>
+                <a href="/login.html">Entrar</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1>Criar sua conta</h1>
+                    <p>Junte-se a mais de 1.000 empresas que já antecipam recebíveis conosco</p>
+                </div>
+
+                <div class="auth-form-container">
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="email">E-mail corporativo *</label>
+                            <input type="email" id="email" name="email" placeholder="seu@empresa.com.br" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Senha *</label>
+                            <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres" required>
+                            <div class="password-strength" id="passwordStrength"></div>
+                            <div class="error-message" id="passwordError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmar senha *</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite a senha novamente" required>
+                            <div class="error-message" id="confirmPasswordError"></div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresa">Nome da empresa</label>
+                                <input type="text" id="empresa" name="empresa" placeholder="Sua Empresa Ltda">
+                            </div>
+                            <div class="form-group">
+                                <label for="cnpj">CNPJ</label>
+                                <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefone">WhatsApp</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999">
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                Aceito os <a href="#" target="_blank">termos de uso</a> e <a href="#" target="_blank">política de privacidade</a>
+                            </label>
+                            <div class="error-message" id="termsError"></div>
+                        </div>
+
+                        <button type="submit" class="cta-button primary auth-button">
+                            <span class="button-text">Criar minha conta grátis</span>
+                            <span class="loading-spinner" style="display: none;">⏳</span>
+                        </button>
+
+                        <div class="form-footer">
+                            <p>Já possui uma conta? <a href="/login.html" class="link-primary">Faça login</a></p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="auth-benefits-sidebar">
+                    <h3>🚀 Com sua conta você pode:</h3>
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="benefit-icon">📤</span>
+                            <span>Upload direto de notas fiscais</span>
+                        </li>
+                        <li>
+                            <span class="benefit-icon">⚡</span>
+                            <span>Receber propostas em minutos</span>
+                        </li>
+                        <li>
+                            <span class="benefit-icon">📊</span>
+                            <span>Acompanhar status em tempo real</span>
+                        </li>
+                        <li>
+                            <span class="benefit-icon">💰</span>
+                            <span>Histórico de todas suas operações</span>
+                        </li>
+                        <li>
+                            <span class="benefit-icon">🔒</span>
+                            <span>Documentos seguros e criptografados</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-fill form data from localStorage if coming from form submission
+            const formData = localStorage.getItem('pendingFormData');
+            if (formData) {
+                try {
+                    const data = JSON.parse(formData);
+                    if (data.empresa) document.getElementById('empresa').value = data.empresa;
+                    if (data.cnpj) document.getElementById('cnpj').value = data.cnpj;
+                    if (data.telefone) document.getElementById('telefone').value = data.telefone;
+                    
+                    // Clear the pending data
+                    localStorage.removeItem('pendingFormData');
+                } catch (e) {
+                    console.log('No form data to pre-fill');
+                }
+            }
+
+            initializeSignupForm();
+        });
+    </script>
+</body>
+</html>

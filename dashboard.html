@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Impulsa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header dashboard-header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">💬</div>
+                <span class="logo-text">Impulsa</span>
+            </div>
+            <nav class="nav dashboard-nav">
+                <a href="/dashboard.html" class="nav-active">Dashboard</a>
+                <a href="/profile.html">Perfil</a>
+                <a href="/history.html">Histórico</a>
+                <div class="user-menu">
+                    <span class="user-name" id="userName">Carregando...</span>
+                    <button class="logout-btn" onclick="logout()">Sair</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="dashboard-welcome">
+                <div class="welcome-content">
+                    <h1>Bem-vindo, <span id="userGreeting">!</span></h1>
+                    <p>Gerencie suas antecipações de recebíveis de forma simples e rápida</p>
+                </div>
+                <div class="welcome-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">R$ 0</div>
+                        <div class="stat-label">Total Antecipado</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Operações</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">-</div>
+                        <div class="stat-label">Status</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h2>Ações Rápidas</h2>
+                <div class="actions-grid">
+                    <div class="action-card primary-action">
+                        <div class="action-icon">📤</div>
+                        <h3>Enviar Notas Fiscais</h3>
+                        <p>Faça upload das suas notas fiscais para análise e receba uma proposta rapidamente</p>
+                        <button class="cta-button primary" onclick="openUploadModal()">
+                            Enviar Agora
+                            <span class="arrow">→</span>
+                        </button>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-icon">💰</div>
+                        <h3>Nova Simulação</h3>
+                        <p>Calcule o valor que você pode antecipar com nossas condições especiais</p>
+                        <button class="cta-button secondary" onclick="window.location.href='/#calculadora'">
+                            Simular
+                        </button>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-icon">📊</div>
+                        <h3>Relatórios</h3>
+                        <p>Acompanhe o histórico das suas operações e análises financeiras</p>
+                        <button class="cta-button secondary" onclick="window.location.href='/history.html'">
+                            Ver Histórico
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="recent-activity">
+                <h2>Atividade Recente</h2>
+                <div class="activity-card empty-state">
+                    <div class="empty-icon">📋</div>
+                    <h3>Nenhuma atividade ainda</h3>
+                    <p>Suas operações aparecerão aqui assim que você enviar sua primeira nota fiscal.</p>
+                    <button class="cta-button primary" onclick="openUploadModal()">
+                        Começar Agora
+                    </button>
+                </div>
+            </section>
+
+            <!-- Help Section -->
+            <section class="help-section">
+                <div class="help-card">
+                    <h3>💬 Precisa de ajuda?</h3>
+                    <p>Nossa equipe está sempre disponível para te auxiliar</p>
+                    <div class="help-buttons">
+                        <a href="https://wa.me/5511984261025" target="_blank" class="help-btn whatsapp">
+                            WhatsApp
+                        </a>
+                        <a href="mailto:contato@impulsa.com.br" class="help-btn email">
+                            E-mail
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📤 Enviar Notas Fiscais</h2>
+                <span class="close" onclick="closeUploadModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <h3>Arraste suas notas fiscais aqui</h3>
+                    <p>Ou clique para selecionar arquivos</p>
+                    <p class="file-info">Formatos aceitos: PDF, JPG, PNG | Máximo: 10MB por arquivo</p>
+                    <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                    <button class="cta-button secondary" onclick="document.getElementById('fileInput').click()">
+                        Selecionar Arquivos
+                    </button>
+                </div>
+                <div class="upload-preview" id="uploadPreview" style="display: none;">
+                    <h4>Arquivos selecionados:</h4>
+                    <div class="file-list" id="fileList"></div>
+                    <button class="cta-button primary" onclick="processUpload()">
+                        Enviar para Análise
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!requireAuth()) return;
+
+            // Load user data
+            const user = getCurrentUser();
+            if (user) {
+                document.getElementById('userName').textContent = user.empresa || user.email;
+                document.getElementById('userGreeting').textContent = user.empresa || 'usuário';
+            }
+
+            initializeDashboard();
+        });
+
+        function initializeDashboard() {
+            // Initialize file upload
+            initializeFileUpload();
+            
+            // Load recent activity (placeholder for now)
+            loadRecentActivity();
+        }
+
+        function initializeFileUpload() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const uploadPreview = document.getElementById('uploadPreview');
+            const fileList = document.getElementById('fileList');
+
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('drag-over');
+            });
+
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('drag-over');
+            });
+
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('drag-over');
+                const files = e.dataTransfer.files;
+                handleFileSelection(files);
+            });
+
+            fileInput.addEventListener('change', function(e) {
+                handleFileSelection(e.target.files);
+            });
+
+            function handleFileSelection(files) {
+                if (files.length === 0) return;
+
+                // Validate files
+                const validFiles = Array.from(files).filter(file => {
+                    const isValidType = file.type.includes('pdf') || file.type.includes('image');
+                    const isValidSize = file.size <= 10 * 1024 * 1024; // 10MB
+                    return isValidType && isValidSize;
+                });
+
+                if (validFiles.length === 0) {
+                    alert('Nenhum arquivo válido selecionado. Verifique o formato e tamanho dos arquivos.');
+                    return;
+                }
+
+                // Show preview
+                displayFilePreview(validFiles);
+                uploadArea.style.display = 'none';
+                uploadPreview.style.display = 'block';
+            }
+
+            function displayFilePreview(files) {
+                fileList.innerHTML = '';
+                files.forEach((file, index) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div class="file-info">
+                            <span class="file-name">${file.name}</span>
+                            <span class="file-size">${formatFileSize(file.size)}</span>
+                        </div>
+                        <button class="remove-file" onclick="removeFile(${index})">×</button>
+                    `;
+                    fileList.appendChild(fileItem);
+                });
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function openUploadModal() {
+            document.getElementById('uploadModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Reset upload area
+            document.getElementById('uploadArea').style.display = 'block';
+            document.getElementById('uploadPreview').style.display = 'none';
+            document.getElementById('fileInput').value = '';
+        }
+
+        function processUpload() {
+            // Simulate file upload process
+            alert('Funcionalidade de upload será implementada na próxima fase. Por enquanto, entre em contato via WhatsApp para enviar suas notas fiscais.');
+            closeUploadModal();
+        }
+
+        function loadRecentActivity() {
+            // Placeholder for loading recent activity
+            // This will be implemented when we add file upload functionality
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('uploadModal');
+            if (e.target === modal) {
+                closeUploadModal();
+            }
+        });
+    </script>
+</body>
+</html>

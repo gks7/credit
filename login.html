@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar - Impulsa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">💬</div>
+                <span class="logo-text">Impulsa</span>
+            </div>
+            <nav class="nav">
+                <a href="/">Início</a>
+                <a href="/signup.html">Criar Conta</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="container">
+            <div class="auth-container login-container">
+                <div class="auth-header">
+                    <h1>Bem-vindo de volta!</h1>
+                    <p>Acesse sua conta para continuar antecipando seus recebíveis</p>
+                </div>
+
+                <div class="auth-form-container">
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="seu@empresa.com.br" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                            <div class="error-message" id="passwordError"></div>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberMe" name="rememberMe">
+                                <span class="checkmark"></span>
+                                Lembrar de mim
+                            </label>
+                        </div>
+
+                        <button type="submit" class="cta-button primary auth-button">
+                            <span class="button-text">Entrar na plataforma</span>
+                            <span class="loading-spinner" style="display: none;">⏳</span>
+                        </button>
+
+                        <div class="auth-links">
+                            <a href="/forgot-password.html" class="link-primary">Esqueci minha senha</a>
+                        </div>
+
+                        <div class="form-footer">
+                            <p>Não possui uma conta? <a href="/signup.html" class="link-primary">Cadastre-se grátis</a></p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="login-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">R$ 50M+</div>
+                        <div class="stat-label">Antecipados este ano</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1.000+</div>
+                        <div class="stat-label">Empresas confiam na Impulsa</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24h</div>
+                        <div class="stat-label">Tempo médio de aprovação</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="auth-footer">
+        <div class="container">
+            <p>© 2025 Impulsa. Todos os direitos reservados. | <a href="#">Termos de Uso</a> | <a href="#">Privacidade</a></p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            if (isAuthenticated()) {
+                window.location.href = '/dashboard.html';
+                return;
+            }
+
+            initializeLoginForm();
+        });
+    </script>
+</body>
+</html>
